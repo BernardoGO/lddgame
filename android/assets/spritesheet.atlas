@@ -1,0 +1,61 @@
+
+spritesheet.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0001
+  rotate: false
+  xy: 2, 262
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0007
+  rotate: false
+  xy: 2, 262
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0002
+  rotate: false
+  xy: 2, 132
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0006
+  rotate: false
+  xy: 2, 132
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0003
+  rotate: false
+  xy: 260, 262
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0005
+  rotate: false
+  xy: 260, 262
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0004
+  rotate: false
+  xy: 2, 2
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+0008
+  rotate: false
+  xy: 260, 132
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
