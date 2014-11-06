@@ -172,7 +172,12 @@ public class MyActor extends Actor{
     
     @Override
     public void act(float delta){
-    	stateTime += delta;
+    	float count = 0;
+    	if(lddgame.oWall.multiplier == 1)
+    		count = count + 1;
+    	else 
+    		count = count + 0.1f;
+    	stateTime += delta*count;
 
         
     }

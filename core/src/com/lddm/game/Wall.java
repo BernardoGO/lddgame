@@ -2,6 +2,8 @@ package com.lddm.game;
 
 import java.util.Random;
 
+import sun.security.ssl.Debug;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -57,7 +59,7 @@ public class Wall extends Actor {
     
     }
     
-    int xis = 0;
+    float xis = 1f;
     
     public void restart()
    	{
@@ -66,7 +68,7 @@ public class Wall extends Actor {
        	started = false;
        	rotationAngle = -27;
        	collided = false;
-       	xis = 0;
+       	xis = 1;
    	}
     
     public float multiplier = 1;
@@ -85,8 +87,9 @@ public class Wall extends Actor {
             	flames = 4;
             }
             else
-            	actorY+=(5+xis)*multiplier;
-            actorX+=(5+xis)*multiplier;
+            	actorY+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+            actorX+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+            //Debug.println("das" , " das" + String.valueOf(5+Math.log(Math.pow(xis, 3))));
             
             int mod = 1;
             if(multiplier != 1) mod = 19;
