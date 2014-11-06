@@ -49,7 +49,12 @@ public class Star extends Actor {
         if(count >= 360.f)
         	count = 0.0f;
         else
-        	count ++;
+        {
+        	if(lddgame.oWall.multiplier == 1)
+        		count = count + 1;
+        	else 
+        		count = count + 0.1f;
+        }
         //batch.draw(textureAtlas, (float)actorX, (float)actorY, (float)textureAtlas.getWidth()/2, (float)textureAtlas.getHeight()/2, (float)textureAtlas.getWidth(), (float)textureAtlas.getHeight(), (float)32, (float)32);
         //batch.draw(textureAtlas, actorX, actorY, (float)(textureAtlas.getWidth()), (float)(textureAtlas.getHeight()), (float)(textureAtlas.getWidth()), (float)(textureAtlas.getHeight()), (float)(1), (float)(1), 180, (int)(actorX), (int)(actorY), (textureAtlas.getWidth()), (textureAtlas.getHeight()), false, false) ;
         
@@ -73,7 +78,7 @@ public class Star extends Actor {
     @Override
     public void act(float delta){
         //if(started){
-            actorX+=stateTime;
+            actorX+=stateTime*lddgame.oWall.multiplier;
 
             //this.setRotation(this.getRotation() -30);
         //}

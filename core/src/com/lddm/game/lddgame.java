@@ -144,9 +144,12 @@ private SpriteBatch batch;
     boolean navedestruida = false;
     boolean terminou = false;
     int times = 10;
+    
+    public static float r=0.3f, g= 0.3f, b=0.5f;
+    
     @Override
     public void render() {        
-        Gdx.gl.glClearColor(0.6f, 0.6f, 0.9f, 1);
+        Gdx.gl.glClearColor(r, g, b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //batch.setProjectionMatrix(camera.combined);
         //stage.setCamera(camera);
@@ -193,7 +196,10 @@ private SpriteBatch batch;
         
         if(navedestruida && !terminou)
         {
-        	
+        	oWall.multiplier = 1;
+        	r=0.3f;
+        	g= 0.3f;
+        	b=0.5f;
         	if(times == 10) 
         		{
         			stage.addActor(new Explosion(rJet.x, rJet.y));

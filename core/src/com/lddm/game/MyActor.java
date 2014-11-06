@@ -34,9 +34,26 @@ public class MyActor extends Actor{
                 //((MyActor)event.getTarget()).started = true;
             	lddgame.oWall.started = true;
             	started = true;
+            	lddgame.oWall.multiplier = 1;
+            	
+            	lddgame.r = 0.3f;
+                lddgame.g = 0.3f;
+                lddgame.b = 0.5f;
+                
                 return true;
             }
+            
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                //((MyActor)event.getTarget()).started = true;
+  
+            	lddgame.oWall.multiplier = (float) 0.01;
+                lddgame.r = 0.1f;
+                lddgame.g = 0.1f;
+                lddgame.b = 0.2f;
+                
+            }
         });
+        
         
         
         addListener(new DragScrollListener(null){

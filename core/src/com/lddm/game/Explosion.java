@@ -51,7 +51,7 @@ public class Explosion extends Actor {
 
 
     }
-    int reduce = 0;
+    float reduce = 0;
     float count =360.0f;
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -60,11 +60,23 @@ public class Explosion extends Actor {
         if(count >= 360.f)
         	count = 0.0f;
         else
-        	count ++;
+        {
+        	if(lddgame.oWall.multiplier == 1)
+        		count = count + 1;
+        	else 
+        		count = count + 0.1f;
+        }
         //batch.draw(textureAtlas, (float)actorX, (float)actorY, (float)textureAtlas.getWidth()/2, (float)textureAtlas.getHeight()/2, (float)textureAtlas.getWidth(), (float)textureAtlas.getHeight(), (float)32, (float)32);
         //batch.draw(textureAtlas, actorX, actorY, (float)(textureAtlas.getWidth()), (float)(textureAtlas.getHeight()), (float)(textureAtlas.getWidth()), (float)(textureAtlas.getHeight()), (float)(1), (float)(1), 180, (int)(actorX), (int)(actorY), (textureAtlas.getWidth()), (textureAtlas.getHeight()), false, false) ;
         
-        reduce++;
+        //reduce++;
+        
+        
+        	if(lddgame.oWall.multiplier == 1)
+        		reduce = reduce + 1;
+        	else 
+        		reduce = reduce + 0.1f;
+        
     	
         if((reduce > times && times != 0))
         {

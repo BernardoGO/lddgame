@@ -69,6 +69,8 @@ public class Wall extends Actor {
        	xis = 0;
    	}
     
+    public float multiplier = 1;
+    
     @Override
     public void act(float delta){
         if(started){
@@ -83,24 +85,30 @@ public class Wall extends Actor {
             	flames = 4;
             }
             else
-            	actorY+=5+xis;
-            actorX+=5;
-            if(frame%4 == 0) 
-    		{
-            	int textureWidth = textureAtlas.getWidth();
-            	int textureHeight = textureAtlas.getHeight();
-            	for(int i = 0; i < 1; i++)
-            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, false));
-
-    		}
-            else
+            	actorY+=(5+xis)*multiplier;
+            actorX+=(5+xis)*multiplier;
+            
+            int mod = 1;
+            if(multiplier != 1) mod = 19;
+            if(frame % mod == 0)
             {
-            	int textureWidth = textureAtlas.getWidth();
-            	int textureHeight = textureAtlas.getHeight();
-            	for(int i = 0; i < 1; i++)
-            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, true));
-
-    		}
+	            if(frame%4 == 0) 
+	    		{
+	            	int textureWidth = textureAtlas.getWidth();
+	            	int textureHeight = textureAtlas.getHeight();
+	            	for(int i = 0; i < 1; i++)
+	            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, false));
+	
+	    		}
+	            else
+	            {
+	            	int textureWidth = textureAtlas.getWidth();
+	            	int textureHeight = textureAtlas.getHeight();
+	            	for(int i = 0; i < 1; i++)
+	            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, true));
+	
+	    		}
+            }
         }
         if(actorY > 720)
         {
