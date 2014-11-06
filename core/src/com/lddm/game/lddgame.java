@@ -51,6 +51,7 @@ private SpriteBatch batch;
     TextButtonStyle textButtonStyle;
     TextureAtlas buttonAtlas;	
     
+    public static boolean paused = false;
     public static Stage stage;
     MyActor Jet;
     public static Wall oWall;
@@ -150,6 +151,21 @@ private SpriteBatch batch;
     @Override
     public void render() {        
         Gdx.gl.glClearColor(r, g, b, 1);
+        
+        if(paused == true && r >= 0.1f)
+        {
+        	r = r-0.01f;
+        	g = g-0.01f;
+        	b = b-0.01f;
+        	
+        }
+        else if (paused == false && r <= 0.3f)
+        {
+        	r = r+0.01f;
+        	g = g+0.01f;
+        	b = b+0.01f;
+        	
+        }
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //batch.setProjectionMatrix(camera.combined);
         //stage.setCamera(camera);
