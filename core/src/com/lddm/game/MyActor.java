@@ -1,6 +1,7 @@
 package com.lddm.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -23,11 +24,19 @@ public class MyActor extends Actor{
     public boolean started = false;
     private float stateTime = 0;
     public boolean collided = false;
-    
+    Sound crash;
+    Sound distant;
+    Sound firework;
+    Sound fireworks2;
     public MyActor(){
     	
         setBounds(actorX,actorY,animation.getKeyFrame(elapsedTime, true).getRegionWidth(),animation.getKeyFrame(elapsedTime, true).getRegionHeight());
         //setBounds(actorX,actorY,textureAtlas.getWidth(),textureAtlas.getHeight());
+         fireworks2 = Gdx.audio.newSound(Gdx.files.internal("fireworks2.mp3"));
+         firework = Gdx.audio.newSound(Gdx.files.internal("firework.mp3"));
+         distant = Gdx.audio.newSound(Gdx.files.internal("distant.mp3"));
+         crash = Gdx.audio.newSound(Gdx.files.internal("crash.mp3"));
+        
         
         addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -147,6 +156,10 @@ public class MyActor extends Actor{
     	actorX = 500;
     	actorY = 500;
     	started = false;
+    	crash.stop();
+        distant.stop();
+        firework.stop();
+        fireworks2.stop();
 	}
     
     int reduce = 0;
@@ -183,6 +196,14 @@ public class MyActor extends Actor{
     	stateTime += delta*count;
 
         
+    }
+    
+    public void Effects()
+    {
+    	 crash.play();
+         distant.play();
+         firework.play();
+         fireworks2.play();
     }
 
 

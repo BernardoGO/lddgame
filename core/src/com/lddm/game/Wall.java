@@ -5,6 +5,7 @@ import java.util.Random;
 import sun.security.ssl.Debug;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,9 +27,11 @@ public class Wall extends Actor {
     public boolean started = false;
     private float stateTime = 0;
     int frame = 0;
+    private Sound dropSound;
     
     public Wall(){
     	Random rnd = new Random();
+    	dropSound = Gdx.audio.newSound(Gdx.files.internal("chk.mp3"));
     	actorY = rnd.nextInt(208);
         setBounds(actorX,actorY,textureAtlas.getWidth(),textureAtlas.getHeight());
         addListener(new InputListener(){
@@ -109,7 +112,7 @@ public class Wall extends Actor {
 	            	int textureHeight = textureAtlas.getHeight();
 	            	for(int i = 0; i < 1; i++)
 	            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, true));
-	
+	  
 	    		}
             }
         }
@@ -121,6 +124,7 @@ public class Wall extends Actor {
         	actorY = -100;
         	Random rnd = new Random();
         	actorX = rnd.nextInt(1280);
+        	dropSound.play();
         }
         
     }
