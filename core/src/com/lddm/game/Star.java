@@ -88,12 +88,15 @@ public class Star extends Actor {
     	 float accelX = Gdx.input.getAccelerometerX();
     	    float accelY = Gdx.input.getAccelerometerY();
     	    float accelZ = Gdx.input.getAccelerometerZ();
-    			
-            actorX+=stateTime*lddgame.oWall.multiplier*((accelZ)*0.2);
+    	    
+    	    
+    	    float inte = ((accelZ)*0.2f);
+    	    if(!compassAvail) inte = 1;
+            actorX+=stateTime*lddgame.oWall.multiplier*inte;
             azimuth = Gdx.input.getPitch();
             //pitch = Gdx.input.getPitch();
             //roll = Gdx.input.getRoll();
-            actorY+= (accelX)*0.2;
+            actorY+= inte;
             //this.setRotation(this.getRotation() -30);
         //}
         if(actorX > 1280 )

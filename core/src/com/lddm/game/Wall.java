@@ -76,6 +76,24 @@ public class Wall extends Actor {
     
     public float multiplier = 1;
     
+    public boolean isLeft = false;
+    
+    public void move1()
+    {
+    	if(!!!isLeft)
+    	{
+    		actorY+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+    		actorX+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+    	}
+    	else
+    	{
+    		actorY+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+    		actorX-=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+    		
+    	}
+    }
+    
+    
     @Override
     public void act(float delta){
         if(started){
@@ -90,8 +108,7 @@ public class Wall extends Actor {
             	flames = 4;
             }
             else
-            	actorY+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
-            actorX+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
+            	move1();
             //Debug.println("das" , " das" + String.valueOf(5+Math.log(Math.pow(xis, 3))));
             
             int mod = 1;
@@ -103,28 +120,47 @@ public class Wall extends Actor {
 	            	int textureWidth = textureAtlas.getWidth();
 	            	int textureHeight = textureAtlas.getHeight();
 	            	for(int i = 0; i < 1; i++)
-	            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, false));
-	
+	            	{
+	            		if(isLeft)lddgame.stage.addActor(new Explosion(actorX+(textureWidth), actorY-(textureHeight/2f), flametime, false));
+	            		if(!isLeft)lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, false));
+	            	}	
 	    		}
 	            else
 	            {
 	            	int textureWidth = textureAtlas.getWidth();
 	            	int textureHeight = textureAtlas.getHeight();
 	            	for(int i = 0; i < 1; i++)
-	            		lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, true));
+	            	{
+	            		if(isLeft)lddgame.stage.addActor(new Explosion(actorX+(textureWidth), actorY-(textureHeight/2f), flametime, true));
+	            		if(!isLeft)lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, true));
+	            	}
 	  
 	    		}
             }
         }
-        if(actorY > 720)
+        if(actorY > 720 )
         {
-        	
-        	lddgame.score.myScore++;
-        	xis += 2;
-        	actorY = -100;
-        	Random rnd = new Random();
-        	actorX = rnd.nextInt(1280);
-        	dropSound.play();
+        	isLeft = !isLeft;
+        	if(isLeft)
+        	{
+        		rotationAngle = 27;
+        		lddgame.score.myScore++;
+        		xis += 2;
+	        	actorY = -10;
+	        	Random rnd = new Random();
+	        	actorX = rnd.nextInt(1280);
+	        	dropSound.play();
+        	}
+        	else
+        	{
+        		rotationAngle = -27;
+	        	lddgame.score.myScore++;
+	        	xis += 2;
+	        	actorY = -10;
+	        	Random rnd = new Random();
+	        	actorX = rnd.nextInt(1280);
+	        	dropSound.play();
+        	}
         }
         
     }
