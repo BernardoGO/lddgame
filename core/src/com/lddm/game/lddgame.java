@@ -186,7 +186,7 @@ private SpriteBatch batch;
         	button.setVisible(true);
         	oWall.collided = true;
         	Jet.collided = true;
-        	Jet.Effects();
+        	Jet.Effects(); 
         }
         //Debug.println("", ""+ (Jet.actorX - rJet.width/2f));
         

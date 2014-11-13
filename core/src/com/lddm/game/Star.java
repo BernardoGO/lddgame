@@ -48,7 +48,7 @@ public class Star extends Actor {
         //batch.draw(textureAtlas,actorX,actorY,textureAtlas.getWidth()/2.0f,textureAtlas.getHeight()/2.0f, textureAtlas.getWidth(), textureAtlas.getHeight(), 1f, 1f,count, false);
         if(count >= 360.f)
         	count = 0.0f;
-        else
+        else   
         {
         	if(lddgame.oWall.multiplier == 1)
         		count = count + 1;

@@ -9,7 +9,7 @@ public class Score extends Actor {
     BitmapFont font;
     public int myScore;      //I assumed you have some object 
                         //that you use to access score.
-                        //Remember to pass this in!
+                        //Remember to pass this in!  
     public Score(){
         font = new BitmapFont(false);
             font.setColor(0.5f,1f,0.5f,1);   //Brown is an underated Colour
