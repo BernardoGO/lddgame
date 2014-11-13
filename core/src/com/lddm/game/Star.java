@@ -3,6 +3,7 @@ package com.lddm.game;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class Star extends Actor {
     //Texture texture = new Texture(Gdx.files.internal("data/spritesheet.png"));
     private Texture textureAtlas = new Texture(Gdx.files.internal("star.png"));
-    
+    boolean compassAvail = Gdx.input.isPeripheralAvailable(Peripheral.Compass);
     //batch = new SpriteBatch();
     //textureAtlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
    // animation = new Animation(1/15f, textureAtlas.getRegions());
@@ -23,11 +24,14 @@ public class Star extends Actor {
     float actorX = -100, actorY = 408;
     public boolean started = false;
     private float stateTime = 0;
+    float firstAzimuth = 1;
     public Star(){
     	Random rnd = new Random();
     	actorY = rnd.nextInt(800);
     	stateTime = rnd.nextInt(5)+1;
     	actorY -= 100;
+    	firstAzimuth = Gdx.input.getPitch();
+    	
     	actorX = rnd.nextInt(600) * 1;
     	reduce = rnd.nextInt(10);
     	//this.rotate(rnd.nextInt(360));
@@ -74,16 +78,27 @@ public class Star extends Actor {
 
     	
     }
-    
+    float azimuth = 1;
+    float pitch = 1;
+    float roll = 1;
     @Override
     public void act(float delta){
         //if(started){
-            actorX+=stateTime*lddgame.oWall.multiplier;
-
+    	
+    	 float accelX = Gdx.input.getAccelerometerX();
+    	    float accelY = Gdx.input.getAccelerometerY();
+    	    float accelZ = Gdx.input.getAccelerometerZ();
+    			
+            actorX+=stateTime*lddgame.oWall.multiplier*((accelZ)*0.2);
+            azimuth = Gdx.input.getPitch();
+            //pitch = Gdx.input.getPitch();
+            //roll = Gdx.input.getRoll();
+            actorY+= (accelX)*0.2;
             //this.setRotation(this.getRotation() -30);
         //}
-        if(actorX > 1280)
+        if(actorX > 1280 )
         {
+        	
         	actorX = -100;
         	Random rnd = new Random();
         	actorY = rnd.nextInt(800);
@@ -91,6 +106,13 @@ public class Star extends Actor {
         	actorY -= 100;
         	actorX = rnd.nextInt(600) * -1;
         }
-        
+        if(actorY > 740)
+        {
+        	actorY = -10;
+        }
+        if(actorY < -20)
+        {
+        	actorY = 720;
+        }
     }
 }
