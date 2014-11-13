@@ -7,6 +7,6 @@ import com.lddm.game.lddgame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new lddgame(), config);
+		new LwjglApplication(new lddgame(0), config);
 	}
 }

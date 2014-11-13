@@ -43,7 +43,11 @@ private SpriteBatch batch;
     
     
 	public static Score score;
-    
+	int satelites = 0;
+    public lddgame(int satelites)
+    {
+    	this.satelites = satelites;
+    }
     
 	BitmapFont font;
     Skin skin;
