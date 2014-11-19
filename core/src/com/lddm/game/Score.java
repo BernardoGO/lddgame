@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Score extends Actor {
 
     BitmapFont font;
-    public int myScore;      //I assumed you have some object 
-                        //that you use to access score.
-                        //Remember to pass this in!  
+    public int myScore; 
+    public int highScore = 0;
+    
     public Score(){
         font = new BitmapFont(false);
             font.setColor(0.5f,1f,0.5f,1);   //Brown is an underated Colour
@@ -19,7 +19,7 @@ public class Score extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-         font.draw(batch, "Score: 0" + myScore, 20, 710);
+         font.draw(batch, "Score: 0" + myScore + "   High Score: " + highScore, 20, 710);
          //Also remember that an actor uses local coordinates for drawing within
          //itself!
     }

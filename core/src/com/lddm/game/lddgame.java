@@ -7,6 +7,7 @@ import sun.security.ssl.Debug;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -95,6 +96,8 @@ private SpriteBatch batch;
         button.addListener( new ClickListener() {             
             @Override
             public void clicked(InputEvent event, float x, float y) {
+            	Preferences prefs = Gdx.app.getPreferences("PreferenceName");// We store the value 10 with the key of "highScore"
+            	score.highScore = prefs.getInteger("highScore");
             	 oWall.restart();
             	 
                  Jet.restart();
@@ -103,6 +106,7 @@ private SpriteBatch batch;
                  
                  navedestruida = false;
                  terminou = false;
+                 
             };
         });
     	button.setX(550);
@@ -125,7 +129,9 @@ private SpriteBatch batch;
         
         
         score = new Score();
-
+        Preferences prefs = Gdx.app.getPreferences("PreferenceName");// We store the value 10 with the key of "highScore"
+    	score.highScore = prefs.getInteger("highScore");
+    	
     	stage.addActor(score);
         
         
@@ -191,6 +197,17 @@ private SpriteBatch batch;
         	oWall.collided = true;
         	Jet.collided = true;
         	Jet.Effects(); 
+        	
+        	
+        	
+        	if(score.myScore > score.highScore)
+        	{
+        		Preferences prefs = Gdx.app.getPreferences("PreferenceName");// We store the value 10 with the key of "highScore"
+        	
+        		prefs.putInteger("highScore", score.myScore); 
+        		prefs.flush(); 
+        	}
+        	
         }
         //Debug.println("", ""+ (Jet.actorX - rJet.width/2f));
         
