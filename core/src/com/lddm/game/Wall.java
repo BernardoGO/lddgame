@@ -140,29 +140,34 @@ public class Wall extends Actor {
         }
         if(actorY > 720 )
         {
-        	isLeft = !isLeft;
-        	if(isLeft)
-        	{
-        		rotationAngle = 27;
-        		lddgame.score.myScore++;
-        		xis += 2;
-	        	actorY = -10;
-	        	Random rnd = new Random();
-	        	actorX = rnd.nextInt(1280);
-	        	dropSound.play();
-        	}
-        	else
-        	{
-        		rotationAngle = -27;
-	        	lddgame.score.myScore++;
-	        	xis += 2;
-	        	actorY = -10;
-	        	Random rnd = new Random();
-	        	actorX = rnd.nextInt(1280);
-	        	dropSound.play();
-        	}
+        	restore();
         }
         
+    }
+    
+    public void restore()
+    {
+    	isLeft = !isLeft;
+    	if(isLeft)
+    	{
+    		rotationAngle = 27;
+    		lddgame.score.myScore++;
+    		xis += 2;
+        	actorY = -10;
+        	Random rnd = new Random();
+        	actorX = rnd.nextInt(1280);
+        	dropSound.play();
+    	}
+    	else
+    	{
+    		rotationAngle = -27;
+        	lddgame.score.myScore++;
+        	xis += 2;
+        	actorY = -10;
+        	Random rnd = new Random();
+        	actorX = rnd.nextInt(1280);
+        	dropSound.play();
+    	}
     }
 }
 

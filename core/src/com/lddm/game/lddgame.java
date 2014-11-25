@@ -1,5 +1,6 @@
 package com.lddm.game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import sun.security.ssl.Debug;
@@ -58,7 +59,7 @@ private SpriteBatch batch;
     
     public static boolean paused = false;
     public static Stage stage;
-    MyActor Jet;
+    public static MyActor Jet;
     public static Wall oWall;
     Camera  camera;
     private Viewport viewport;
@@ -142,7 +143,7 @@ private SpriteBatch batch;
         //viewport = new StretchViewport(1280, 720, camera);
         
         //Gdx.input.setInputProcessor(new GestureDetector(this));
-        
+        gameStarted = true;
     }
 
     @Override
@@ -151,7 +152,27 @@ private SpriteBatch batch;
         
        
     }
-
+    public boolean gameStarted = false;
+    public static int satt = 0;
+    public static ArrayList<Float> Azimuths;
+    public static ArrayList<Float> Elevations;
+    public static boolean addedSatts = false;
+    public static ArrayList<Satellite> satts = new ArrayList<Satellite>();
+    public void setSattelites(int satt, ArrayList<Float> Azimuths, ArrayList<Float> Elevations)
+    {
+    	lddgame.Azimuths = Azimuths;
+		lddgame.satt = satt;
+    	lddgame.Elevations = Elevations;
+    	
+    	//setSatts();
+    }
+    
+    
+    public static void setSatts()
+    {
+    	
+    }
+    
     boolean navedestruida = false;
     boolean terminou = false;
     int times = 10;
@@ -249,6 +270,23 @@ private SpriteBatch batch;
     		times++;
     		if(Jet.actorY < -260) terminou = true;
         }
+        
+        if(satt > 8 && stage != null && addedSatts == false)
+    	{
+    		for(int x = 0; x < satt; x++)
+    		{
+    			Satellite newSat = new Satellite();
+    			
+    			newSat.angle = Azimuths.get(x);
+    			newSat.distance = ((int)(Math.round( Elevations.get(x))))*2 + 120;
+    			satts.add(newSat);
+    			lddgame.stage.addActor(satts.get(x));
+    			lddgame.stage.addActor(new Explosion(500, 500, 10, false));
+    		}
+    		
+    		addedSatts = true;
+    		
+    	}
     }
 
     float increaseX = 1;

@@ -19,7 +19,7 @@ public class Score extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-         font.draw(batch, "Score: 0" + myScore + "   High Score: " + highScore, 20, 710);
+         font.draw(batch, "Score: 0" + myScore + "   High Score: " + highScore + "   Satellites: " + lddgame.satt, 20, 710);
          //Also remember that an actor uses local coordinates for drawing within
          //itself!
     }
