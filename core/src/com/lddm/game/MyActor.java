@@ -30,14 +30,17 @@ public class MyActor extends Actor{
     Sound fireworks2;
     public MyActor(){
     	
+    	
         setBounds(actorX,actorY,animation.getKeyFrame(elapsedTime, true).getRegionWidth(),animation.getKeyFrame(elapsedTime, true).getRegionHeight());
         //setBounds(actorX,actorY,textureAtlas.getWidth(),textureAtlas.getHeight());
-         fireworks2 = Gdx.audio.newSound(Gdx.files.internal("fireworks2.mp3"));
+        
+        //Carrega os sons no OpenGL
+        fireworks2 = Gdx.audio.newSound(Gdx.files.internal("fireworks2.mp3"));
          firework = Gdx.audio.newSound(Gdx.files.internal("firework.mp3"));
          distant = Gdx.audio.newSound(Gdx.files.internal("distant.mp3"));
          crash = Gdx.audio.newSound(Gdx.files.internal("crash.mp3"));
         
-        
+        //verificar presssionar a nave pelo usuario 
         addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 //((MyActor)event.getTarget()).started = true;
@@ -54,6 +57,7 @@ public class MyActor extends Actor{
                 return true;
             }
             
+            //pausar o jogo em caso de soltar a nave pelo usuario
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 //((MyActor)event.getTarget()).started = true;
   
@@ -67,7 +71,7 @@ public class MyActor extends Actor{
         });
         
         
-        
+        //movimentação da nave principal evento drag
         addListener(new DragScrollListener(null){
         	@Override
         public void drag(InputEvent event, float x, float y, int pointer) {
@@ -149,7 +153,7 @@ public class MyActor extends Actor{
         	
         }
         
-        
+     //restart do jogo chamará esta funcão   
     public void restart()
 	{
     	collided = false;
@@ -164,6 +168,8 @@ public class MyActor extends Actor{
     
     int reduce = 0;
     int degrees = 0;
+    
+    //desenhar a nave
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //batch.draw(animation.getKeyFrame(stateTime, true),actorX,actorY);

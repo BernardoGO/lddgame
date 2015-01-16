@@ -46,6 +46,8 @@ private SpriteBatch batch;
     
 	public static Score score;
 	int satelites = 0;
+	
+	//receber satelites do android
     public lddgame(int satelites)
     {
     	this.satelites = satelites;
@@ -66,10 +68,13 @@ private SpriteBatch batch;
     @Override
     public void create() {   
     	//camera = new OrthographicCamera(1280, 720);
+    	
+    	//inicializa cenário, nave e missel
     	stage = new Stage(new StretchViewport(1280, 720));
     	Jet = new MyActor();
-    	oWall = new Wall();
+    	oWall = new Wall(); //wall = missel
     	
+    	//fontes para textos
     	font = new BitmapFont();
         skin = new Skin();
         buttonAtlas = new TextureAtlas(Gdx.files.internal("spritesheet2.atlas"));
@@ -80,6 +85,7 @@ private SpriteBatch batch;
         textButtonStyle.font = font;
         textButtonStyle.up = skin.getDrawable("001");
         textButtonStyle.down = skin.getDrawable("001");
+        
         //textButtonStyle.checked = skin.getDrawable("checked-button");
         button = new TextButton("Restart", textButtonStyle);
         button.addListener(new ChangeListener() {
@@ -101,15 +107,27 @@ private SpriteBatch batch;
             	score.highScore = prefs.getInteger("highScore");
             	 oWall.restart();
             	 
+            	 //Recuperar satelites removidos na partida anterior
+            	 for(int yss=0; yss< satts.size(); yss++)
+            	 {
+            		 satts.get(yss).restart();
+            	 }
+            	 
+            	 //recuperar nave
                  Jet.restart();
-                 button.setVisible(false);
-                 score.myScore = 0;
                  
+                 //esconder botao
+                 button.setVisible(false);
+                 
+                 //zerar pontuações
+                 score.myScore = 0;
+                 score.vidas = 1;
                  navedestruida = false;
                  terminou = false;
                  
             };
         });
+        
     	button.setX(550);
     	button.setY(300);
     	button.setVisible(false);
@@ -149,15 +167,19 @@ private SpriteBatch batch;
     @Override
     public void dispose() {
     	 stage.dispose();
-        
-       
+
     }
+    
+    
+    //informaçoes dos satelites
     public boolean gameStarted = false;
     public static int satt = 0;
     public static ArrayList<Float> Azimuths;
     public static ArrayList<Float> Elevations;
     public static boolean addedSatts = false;
     public static ArrayList<Satellite> satts = new ArrayList<Satellite>();
+    
+    //função chamada pelo listener do android
     public void setSattelites(int satt, ArrayList<Float> Azimuths, ArrayList<Float> Elevations)
     {
     	lddgame.Azimuths = Azimuths;
@@ -167,18 +189,22 @@ private SpriteBatch batch;
     	//setSatts();
     }
     
-    
+    //ainda não usei mas pretendo
     public static void setSatts()
     {
     	
     }
     
+    
     boolean navedestruida = false;
     boolean terminou = false;
     int times = 10;
     
+    //cores do fundo
     public static float r=0.3f, g= 0.3f, b=0.5f;
     
+    
+    //chamado em loop para renderizar os quadros da tela
     @Override
     public void render() {        
         Gdx.gl.glClearColor(r, g, b, 1);
@@ -203,6 +229,7 @@ private SpriteBatch batch;
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         
+        //verificar colisão
         Rectangle rJet = new Rectangle();
         
         rJet.height = Jet.getHeight();
@@ -210,49 +237,42 @@ private SpriteBatch batch;
         rJet.x = Jet.actorX- rJet.width/2f;
         rJet.y = Jet.actorY - rJet.height/2f;
         
-        if(rJet.overlaps(new Rectangle(oWall.actorX, oWall.actorY, oWall.getWidth(), oWall.getHeight())))
+        //java não tem Goto, ai já viu
+        huuu:
         {
-        	navedestruida = true;
-        	//oWall.started = false;
-        	button.setVisible(true);
-        	oWall.collided = true;
-        	Jet.collided = true;
-        	Jet.Effects(); 
         	
-        	
-        	
-        	if(score.myScore > score.highScore)
-        	{
-        		Preferences prefs = Gdx.app.getPreferences("PreferenceName");// We store the value 10 with the key of "highScore"
-        	
-        		prefs.putInteger("highScore", score.myScore); 
-        		prefs.flush(); 
-        	}
-        	
+	        if(rJet.overlaps(new Rectangle(oWall.actorX, oWall.actorY, oWall.getWidth(), oWall.getHeight())))
+	        {
+	        	//reduzir as vidas e verificar se é menor que um para terminar o jogo
+	        	score.vidas--;
+	        	if(score.vidas >= 1)
+	        	{
+	        		oWall.restore();
+	        		break huuu;
+	        	}
+	        	
+	        	//fim de jogo
+	        	navedestruida = true;
+	        	//oWall.started = false;
+	        	button.setVisible(true);
+	        	oWall.collided = true;
+	        	Jet.collided = true;
+	        	Jet.Effects(); 
+	        	
+	        	
+	        	//atualizar highscore ao fim do jogo
+	        	if(score.myScore > score.highScore)
+	        	{
+	        		Preferences prefs = Gdx.app.getPreferences("PreferenceName");// We store the value 10 with the key of "highScore"
+	        	
+	        		prefs.putInteger("highScore", score.myScore); 
+	        		prefs.flush(); 
+	        	}
+	        	
+	        }
         }
-        //Debug.println("", ""+ (Jet.actorX - rJet.width/2f));
         
-        /*
-        Rectangle rJet = new Rectangle();
-        rJet.height = Jet.getHeight();
-        rJet.width = Jet.getWidth();
-        rJet.x = Jet.actorX;
-        rJet.y = Jet.actorY;
-        if(rJet.x - rJet.width/2f <= oWall.position  && Wall.position <= rJet.x + rJet.width/2f)
-        {
-        	if(rJet.y - rJet.height/2f < Wall.actual1 || rJet.y +  rJet.height/2f > Wall.actual1 + 220)
-        	{
-        		
-        		Wall.ok = false;
-        		myRequestHandler.showAds(true);
-            	Wall.velocity = 0;
-            	Ball.movable = false;
-            	button.setVisible(true);
-        	}
-        	//Debug.println("", rJet.x + "passou" + Wall.position);
-        }
-        */
-        
+        //animações para fim de jogo
         if(navedestruida && !terminou)
         {
         	oWall.multiplier = 1;
@@ -271,6 +291,7 @@ private SpriteBatch batch;
     		if(Jet.actorY < -260) terminou = true;
         }
         
+        //adicionar satelites
         if(satt > 8 && stage != null && addedSatts == false)
     	{
     		for(int x = 0; x < satt; x++)
@@ -289,9 +310,13 @@ private SpriteBatch batch;
     	}
     }
 
+    
+    
     float increaseX = 1;
     float increaseY = 1;
     
+    
+    //corrigir o aspecto da tela para diferentes resoluções é o que faz este metodo
     @Override
     public void resize(int width, int height) {
     	//stage.setViewport(new StretchViewport(1280,728));

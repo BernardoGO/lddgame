@@ -54,6 +54,7 @@ public class Star extends Actor {
         	count = 0.0f;
         else   
         {
+        	//as estrelas giram em velocidade diferente em caso de pause
         	if(lddgame.oWall.multiplier == 1)
         		count = count + 1;
         	else 
@@ -85,6 +86,7 @@ public class Star extends Actor {
     public void act(float delta){
         //if(started){
     	
+    	//verificar sensores do acelerometro
     	 float accelX = Gdx.input.getAccelerometerX();
     	    float accelY = Gdx.input.getAccelerometerY();
     	    float accelZ = Gdx.input.getAccelerometerZ();

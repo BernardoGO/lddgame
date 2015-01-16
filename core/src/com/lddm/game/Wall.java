@@ -80,6 +80,8 @@ public class Wall extends Actor {
     
     public void move1()
     {
+    	
+    	//movimentar para cada lado
     	if(!!!isLeft)
     	{
     		actorY+=(5+Math.log(Math.pow(xis, 3)))*multiplier;
@@ -115,12 +117,14 @@ public class Wall extends Actor {
             if(multiplier != 1) mod = 19;
             if(frame % mod == 0)
             {
+            	//soltar fumaça de uma cor ou de outra, usando o mod 4 para deixar mais diferenciado
 	            if(frame%4 == 0) 
 	    		{
 	            	int textureWidth = textureAtlas.getWidth();
 	            	int textureHeight = textureAtlas.getHeight();
 	            	for(int i = 0; i < 1; i++)
 	            	{
+	            		
 	            		if(isLeft)lddgame.stage.addActor(new Explosion(actorX+(textureWidth), actorY-(textureHeight/2f), flametime, false));
 	            		if(!isLeft)lddgame.stage.addActor(new Explosion(actorX-(textureWidth), actorY-(textureHeight/2f), flametime, false));
 	            	}	
@@ -145,13 +149,14 @@ public class Wall extends Actor {
         
     }
     
+    //recomeçar o movimento em caso de colisão sem game over 
     public void restore()
     {
     	isLeft = !isLeft;
     	if(isLeft)
     	{
     		rotationAngle = 27;
-    		lddgame.score.myScore++;
+    		lddgame.score.addScore();
     		xis += 2;
         	actorY = -10;
         	Random rnd = new Random();
@@ -161,7 +166,7 @@ public class Wall extends Actor {
     	else
     	{
     		rotationAngle = -27;
-        	lddgame.score.myScore++;
+        	lddgame.score.addScore();
         	xis += 2;
         	actorY = -10;
         	Random rnd = new Random();

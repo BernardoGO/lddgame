@@ -38,6 +38,8 @@ public class AndroidLauncher extends AndroidApplication  implements LocationList
 		    
 		    Toast.makeText(this, "Satelites GPS: " + satt, Toast.LENGTH_LONG).show();
 			
+		    
+		    //montar tela
 			RelativeLayout layout = new RelativeLayout(this);
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 	        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
@@ -130,12 +132,14 @@ public class AndroidLauncher extends AndroidApplication  implements LocationList
 		      satt++;
 		    }
 		    //Toast.makeText(this, "Satelites GPS: " + satt, Toast.LENGTH_LONG).show();
+		    
+		    //verificar satelites e chamar lá no core
 			if(gameStarted && game.gameStarted)
 			{
-		    game.setSattelites(satt, Azimuths, Elevations);
-			if(satt > 8)
-				stop = true;
-				gpsStatus = locationManager.getGpsStatus(gpsStatus);
+			    game.setSattelites(satt, Azimuths, Elevations);
+				if(satt > 8)
+					stop = true;
+					gpsStatus = locationManager.getGpsStatus(gpsStatus);
 			}
 		  }
 	  @Override

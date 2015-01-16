@@ -25,7 +25,7 @@ public class Explosion extends Actor {
     public Explosion(float x, float y){
     	textureAtlas = new Texture(Gdx.files.internal("explode.png"));
 
-
+    	
     	Random rnd = new Random();
     	actorY = y - (rnd.nextInt(100)-50);
     	actorX = x - (rnd.nextInt(100)-50);
@@ -61,6 +61,7 @@ public class Explosion extends Actor {
         	count = 0.0f;
         else   
         {
+        	//diminuir velocidade da explosao
         	if(lddgame.oWall.multiplier == 1)
         		count = count + 1;
         	else 
@@ -116,6 +117,7 @@ public class Explosion extends Actor {
 
             //this.setRotation(this.getRotation() -30);
         //}
+        //terminar quando sair da tela
         if(actorX > 1280)
         {
         	actorX = -100;
